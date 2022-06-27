@@ -1,53 +1,84 @@
-const BASIC_API="https://moviesmern.herokuapp.com/movies/"
-async function putMovies(){
+const BASIC_API="https://api.openweathermap.org/data/2.5/"
+const MY_API="16bca9b85e8c9009fb3cfb9a48b7f37d"
+
+
+async function getCity(){
     try{
-        const data={
-            movie:{
-                image:img.value,
-                linkToMovie:link_to_movie.value ,
-                movieName: movie_name.value ,
-                rating: rating.value ,
-                synopsis: synopsis.value ,
-            }
-        }
-        return await fetch("https://moviesmern.herokuapp.com/movies/saveMovie",
-        {
-            method:"POST",
-            body:JSON.stringify(data),
-            headers: {
-                'Contect-Type': 'application/json'
-            },
-        }) 
-        .then(response=>
-            response.json())
+        return await fetch(`${BASIC_API}weather?q=${citys.value}&appid=${MY_API}`)
+        .then(res=>(res.json()))
     }
     catch(err){}
     finally{}
 }
 
-
-async function getMovies(){
-    try{
-        return await fetch(`${BASIC_API}movie/searchByName/${searchMovies.value}`)
-        .then(response=>
-            response.json())
-    }
-    catch(err){}
-    finally{}
-}
-
-function printNames(){
-    moviename.innerHTML="";
-    getMovies()
+function printWinther(){
+    getCity()
     .then((result)=>{
-        
-        result.data.forEach(element => {
-            moviename.innerHTML+=`<li>${element.movieName}<img style='width:20vw' src="${element.image}"/></li>`
-        });
+        console.log(result)
+        wither.innerHTML=`<h1>the wind degry is ${result.wind.deg}</h1>`
     })
-    .catch(()=>{})
-    .finally(()=>{})
 }
+
+
+
+
+
+
+
+
+
+
+
+// const BASIC_API="https://moviesmern.herokuapp.com/movies/"
+// async function putMovies(){
+//     try{
+//         const data={
+//             movie:{
+//                 image:img.value,
+//                 linkToMovie:link_to_movie.value ,
+//                 movieName: movie_name.value ,
+//                 rating: rating.value ,
+//                 synopsis: synopsis.value ,
+//             }
+//         }
+//         return await fetch("https://moviesmern.herokuapp.com/movies/saveMovie",
+//         {
+//             method:"POST",
+//             body:JSON.stringify(data),
+//             headers: {
+//                 'Contect-Type': 'application/json'
+//             },
+//         }) 
+//         .then(response=>
+//             response.json())
+//     }
+//     catch(err){}
+//     finally{}
+// }
+
+
+// async function getMovies(){
+//     try{
+//         return await fetch(`${BASIC_API}movie/searchByName/${searchMovies.value}`)
+//         .then(response=>
+//             response.json())
+//     }
+//     catch(err){}
+//     finally{}
+// }
+
+// function printNames(){
+//     moviename.innerHTML="";
+//     getMovies()
+//     .then((result)=>{
+        
+//         result.data.forEach(element => {
+//             moviename.innerHTML+=`<li>${element.movieName}<img style='width:20vw' src="${element.image}"/></li>`
+//         });
+//     })
+//     .catch(()=>{})
+//     .finally(()=>{})
+// }
 
 
 
